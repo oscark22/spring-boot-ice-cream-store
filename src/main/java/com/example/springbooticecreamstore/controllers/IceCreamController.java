@@ -19,14 +19,14 @@ public class IceCreamController {
     private IceCreamRepository iceCreamRepository;
 
     // get all ice creams
-    @GetMapping("/")
+    @GetMapping
     public List<IceCream> getAllIceCreams() {
         return iceCreamRepository.findAll();
     }
 
     // create a new ice cream
-    @PostMapping("/")
-    public IceCream createIceCream(IceCream iceCream) {
+    @PostMapping
+    public IceCream createIceCream(@RequestBody IceCream iceCream) {
         return iceCreamRepository.save(iceCream);
     }
 
@@ -40,7 +40,7 @@ public class IceCreamController {
 
     // update ice cream
     @PutMapping("/{id}")
-    public ResponseEntity<IceCream> updateIceCream(@PathVariable Long id, IceCream iceCreamDetails) {
+    public ResponseEntity<IceCream> updateIceCream(@PathVariable Long id, @RequestBody IceCream iceCreamDetails) {
         IceCream iceCream = iceCreamRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Ice Cream not exist with id: " + id));
         iceCream.setName(iceCreamDetails.getName());

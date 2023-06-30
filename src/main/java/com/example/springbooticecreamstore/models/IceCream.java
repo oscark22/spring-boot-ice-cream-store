@@ -11,8 +11,11 @@ public class IceCream {
     private String name;
     private float price; // suppose the price is per 100gr.
 
-    public IceCream(long id, String name, float price) {
-        this.id = id;
+    public IceCream() {
+    }
+
+    public IceCream(String name, float price) {
+        super();
         this.name = name;
         this.price = price;
     }
