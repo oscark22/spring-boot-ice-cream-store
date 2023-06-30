@@ -7,7 +7,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @CrossOrigin(origins = "*")
 @RestController
@@ -46,5 +48,14 @@ public class IceCreamController {
         return ResponseEntity.ok(iceCream);
     }
 
-
+    // delete user rest api
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Map<String, Boolean>> deleteIceCream(@PathVariable Long id) {
+        IceCream iceCream = iceCreamRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("Ice Cream not exist with id: " + id));
+        iceCreamRepository.delete(iceCream);
+        Map<String, Boolean> response = new HashMap<>();
+        response.put("deleted", Boolean.TRUE);
+        return ResponseEntity.ok(response);
+    }
 }
